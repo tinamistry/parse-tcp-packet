@@ -34,7 +34,6 @@ def analysis_pcap_tcp(fileName):
 
 
 def first_two_transaction(source_ip, source_port, dest_port, dest_ip):
-    string = " "
     sender = '130.245.145.12'
     receiver = ' 128.208.2.198'
     f = open('assignment2.pcap', 'rb')
@@ -49,14 +48,13 @@ def first_two_transaction(source_ip, source_port, dest_port, dest_ip):
         sip = inet_to_str(ip.src)
         dip = inet_to_str(ip.dst)
         if transaction == 1 and source_ip == sender:
-            print("Sequence #: " )
-
-            transaction = 2
-        if transaction == 2 and source_ip == sender:
+            print("Transaction #1: Sequence #: " + str(tcp.seq) + " Ack #: " + str(tcp.ack))
+            transaction += 1
+        elif transaction == 2 and source_ip == sender:
+            print("Transaction #2: Sequence #: " + str(tcp.seq) + " Ack #: " + str(tcp.ack))
             return
-        if source_ip == sip and source_port == sp and dest_port == dp and dest_ip == dip:
+        elif source_ip == sip and source_port == sp and dest_port == dp and dest_ip == dip:
             transaction = 1
-
 
 
 analysis_pcap_tcp('assignment2.pcap')
